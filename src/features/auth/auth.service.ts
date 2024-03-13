@@ -18,9 +18,11 @@ export default class AuthServices {
     const organizer = await prisma.organizer.findFirst({
       where: { email: data.email },
     });
+    console.log(organizer)
     if (organizer) {
       const token = encodeToken({ id: organizer.id, email: organizer.email });
-      return { token };
+      console.log(token)
+      return token;
     }
 
     const organizerId = uuidd.v4();
@@ -41,6 +43,6 @@ export default class AuthServices {
       id: organizerCreated.id,
       email: organizerCreated.email,
     });
-    return { token };
+    return token ;
   }
 }

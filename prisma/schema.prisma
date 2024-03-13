@@ -14,7 +14,13 @@ model organizer {
   createdAt DateTime @default(now())
   name      String
   email     String
+}
+
+
+model meetup_api_service {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
   client_id String
   client_secret String
-  meetup_api Boolean
+  orgaganizer_id String
 }

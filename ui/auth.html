@@ -30,8 +30,10 @@
           },
           body: JSON.stringify(params),
         });
+        const data = await res.json();
+        console.log(data);
         const node = document.getElementById("auth");
-        node.innerHTML = (await res.json()).token;
+        node.innerHTML = data.token;
       };
       sendToBackend();
     </script>
