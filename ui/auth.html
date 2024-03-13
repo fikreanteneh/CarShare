@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="auth"></div>
+    <script>
+      const sendToBackend = async () => {
+        const url = new URL(window.location.href);
+        const hash = url.hash.substring(1);
+        let params = {};
+        let paramPairs = hash.split("&");
+
+        paramPairs.forEach(function (pair) {
+          let keyValue = pair.split("=");
+          let key = decodeURIComponent(keyValue[0]);
+          let value = decodeURIComponent(keyValue[1]);
+          params[key] = value;
+        });
+
+        // console.log(params);
+
+        const res = await fetch("http://localhost:3000/v1/auth/oauth", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(params),
+        });
+        const node = document.getElementById("auth");
+        node.innerHTML = (await res.json()).token;
+      };
+      sendToBackend();
+    </script>
+  </body>
+</html>

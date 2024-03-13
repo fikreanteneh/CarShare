@@ -1,0 +1,20 @@
+// schema.prisma
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model organizer {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  name      String
+  email     String
+  client_id String
+  client_secret String
+  meetup_api Boolean
+}

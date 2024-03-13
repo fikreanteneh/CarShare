@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="https://accounts.google.com/o/oauth2/v2/auth" method="get">
+      <input
+        type="hidden"
+        name="client_id"
+        value="75217518858-q9nqnngegooqrrqo98pa9e1tvj09j0jj.apps.googleusercontent.com"
+      />
+      <input
+        type="hidden"
+        name="redirect_uri"
+        value="http://127.0.0.1:5500/ui/auth.html"
+      />
+      <input type="hidden" name="response_type" value="token" />
+      <input
+        type="hidden"
+        name="scope"
+        value="https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email"
+      />
+      <input type="hidden" name="include_granted_scopes" value="true" />
+      <input type="hidden" name="state" value="pass-through value" />
+      <input type="submit" value="Submit" />
+    </form>
+    <script></script>
+  </body>
+</html>

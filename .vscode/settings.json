@@ -1,0 +1,41 @@
+{
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5432,
+      "driver": "PostgreSQL",
+      "name": "Test",
+      "group": "PostgreSQL",
+      "database": "test",
+      "username": "postgres",
+      "password": "12345678"
+    },
+    {
+      "mysqlOptions": {
+        "authProtocol": "default",
+        "enableSsl": "Disabled"
+      },
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 3306,
+      "driver": "MySQL",
+      "name": "Test",
+      "group": "MySQL",
+      "username": "root",
+      "password": "12345678",
+      "database": "test"
+    },
+    {
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5432,
+      "driver": "PostgreSQL",
+      "name": "carpool",
+      "group": "PostgresSQL",
+      "password": "12345678",
+      "username": "postgres",
+      "database": "carpool"
+    }
+  ]
+}
