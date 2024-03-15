@@ -9,18 +9,33 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model organizer {
-  id        String   @id @default(uuid())
+model organizers {
+  id        String @unique   @id @default(uuid())
   createdAt DateTime @default(now())
   name      String
-  email     String
+  email     String @unique
+  meetup_api_services meetup_api_services[]
+  events events[]
 }
 
 
-model meetup_api_service {
-  id        String   @id @default(uuid())
+model meetup_api_services {
+  id        String  @unique @id @default(uuid())
   createdAt DateTime @default(now())
   client_id String
   client_secret String
-  orgaganizer_id String
+  orgaganizer_id String 
+  name String
+  organizer organizers @relation(fields: [orgaganizer_id], references: [id])
+}
+
+model events {
+  id String @unique @id @default(uuid())
+  createdAt DateTime @default(now())
+  organizer_id String
+  name String
+  date DateTime
+  lat Decimal
+  long Decimal 
+  organizer organizers @relation(fields: [organizer_id], references: [id]) 
 }

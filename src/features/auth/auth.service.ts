@@ -1,48 +1,53 @@
+import Organizer from "models/organizer.model";
+import OrganizerRepository from "repositories/organizer.repository";
 import * as uuidd from "uuid";
-import { db } from "../../config/database";
-import { encodeToken } from "../../utils/tokens";
+import { decodeToken, encodeToken } from "../../utils/tokens";
+import { AuthLoginRequest, GoogleOauthResponse } from "./auth.types";
 
 export default class AuthServices {
-  async login(body: any) {
-    const access_token = body.access_token;
-    const token_type = body.token_type;
-    const expires_in = +body.expires_in;
+  private organizerRepository: OrganizerRepository;
+
+  constructor(organizerRepository: OrganizerRepository) {
+    this.organizerRepository = organizerRepository;
+  }
+
+  async login(payload: AuthLoginRequest) {
+    const access_token = payload.access_token;
     const response = await fetch(
       `https://www.googleapis.com/oauth2/v2/userinfo?access_token=${access_token}`,
       { method: "GET" }
     );
-    const data = await response.json();
+    const data = (await response.json()) as GoogleOauthResponse;
 
-    const prisma = db();
-
-    const organizer = await prisma.organizer.findFirst({
-      where: { email: data.email },
-    });
-    console.log(organizer)
-    if (organizer) {
-      const token = encodeToken({ id: organizer.id, email: organizer.email });
-      console.log(token)
-      return token;
-    }
-
-    const organizerId = uuidd.v4();
-    const clientId = uuidd.v4();
-    const clientSecret = uuidd.v4();
-    const organizerCreated = await prisma.organizer.create({
-      data: {
+    let organizer = await this.organizerRepository.getByEmail(data.email);
+    if (!organizer) {
+      const organizerId = uuidd.v4();
+      organizer = await this.organizerRepository.create({
         id: organizerId,
-        email: data.email,
         name: data.name,
-        client_id: clientId,
-        client_secret: clientSecret,
-        meetup_api: false,
-      },
-    });
+        email: data.email,
+      });
+    }
+    organizer = organizer as Organizer;
 
     const token = encodeToken({
-      id: organizerCreated.id,
-      email: organizerCreated.email,
+      id: organizer.id,
+      email: organizer.email,
     });
-    return token ;
+    return token;
   }
+
+  // async validateToken(token: string): Promise<boolean | undefined> {
+  //   const decoded = decodeToken(token);
+  //   if (!decoded) {
+  //     return;
+  //   }
+  //   const organizer = await prisma.organizers.findFirst({
+  //     where: { id: decoded.id },
+  //   });
+  //   if (!organizer) {
+  //     return false;
+  //   }
+  //   return true;
+  // }
 }

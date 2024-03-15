@@ -1,14 +1,24 @@
 import { Router } from "express";
 import { controllerHandler } from "../../middlewares/controller.middleware";
-import { oauth } from "./auth.controller";
+import {
+  createEvent,
+  deleteEvent,
+  getAllEvents,
+  getEventById,
+  getEventByOrganizer,
+  updateEvent,
+} from "./event.controller";
 
-const authRoute = Router();
+const eventRouter = Router();
+
+
+
 
 /**
  * @openapi
  * /oauth:
  *   post:
- *     summary: OAuth endpoint
+ *     summary: Meetup API Service Genarate endpoint
  *     description: This endpoint is used for OAuth.
  *     requestBody:
  *       required: true
@@ -41,6 +51,11 @@ const authRoute = Router();
  *                 access_token:
  *                   type: string
  */
-authRoute.post("/oauth", controllerHandler(oauth));
+eventRouter.post("/", controllerHandler(createEvent));
+eventRouter.delete("/:id", controllerHandler(deleteEvent));
+eventRouter.put("/:id", controllerHandler(updateEvent));
+eventRouter.get("/organizer/:id", controllerHandler(getEventByOrganizer));
+eventRouter.get("/all", controllerHandler(getAllEvents));
+eventRouter.get("/:id", controllerHandler(getEventById));
 
-export default authRoute;
+export default eventRouter;
