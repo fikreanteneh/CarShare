@@ -390,7 +390,13 @@
 				"type": "object"
 			}
 		},
-		"securitySchemes": {}
+		"securitySchemes": {
+			"BearerAuth": {
+				"type": "http",
+				"scheme": "bearer",
+				"bearerFormat": "JWT"
+			}
+		}
 	},
 	"info": {
 		"title": "",
@@ -417,7 +423,7 @@
 				],
 				"security": [
 					{
-						"jwt": []
+						"BearerAuth": []
 					}
 				],
 				"parameters": [],
@@ -453,7 +459,7 @@
 				],
 				"security": [
 					{
-						"jwt": []
+						"BearerAuth": []
 					}
 				],
 				"parameters": [
@@ -488,7 +494,7 @@
 				],
 				"security": [
 					{
-						"jwt": []
+						"BearerAuth": []
 					}
 				],
 				"parameters": [
@@ -533,7 +539,7 @@
 				],
 				"security": [
 					{
-						"jwt": []
+						"BearerAuth": []
 					}
 				],
 				"parameters": [
@@ -566,7 +572,7 @@
 				],
 				"security": [
 					{
-						"jwt": []
+						"BearerAuth": []
 					}
 				],
 				"parameters": [
@@ -601,7 +607,7 @@
 				],
 				"security": [
 					{
-						"jwt": []
+						"BearerAuth": []
 					}
 				],
 				"parameters": [
@@ -636,7 +642,7 @@
 				],
 				"security": [
 					{
-						"jwt": []
+						"BearerAuth": []
 					}
 				],
 				"parameters": []
@@ -662,7 +668,7 @@
 				],
 				"security": [
 					{
-						"jwt": []
+						"BearerAuth": []
 					}
 				],
 				"parameters": [],
@@ -698,7 +704,7 @@
 				],
 				"security": [
 					{
-						"jwt": []
+						"BearerAuth": []
 					}
 				],
 				"parameters": [
@@ -731,7 +737,7 @@
 				],
 				"security": [
 					{
-						"jwt": []
+						"BearerAuth": []
 					}
 				],
 				"parameters": [
@@ -774,7 +780,7 @@
 				],
 				"security": [
 					{
-						"jwt": []
+						"BearerAuth": []
 					}
 				],
 				"parameters": [
@@ -809,7 +815,7 @@
 				],
 				"security": [
 					{
-						"jwt": []
+						"BearerAuth": []
 					}
 				],
 				"parameters": [
@@ -844,7 +850,7 @@
 				],
 				"security": [
 					{
-						"jwt": []
+						"BearerAuth": []
 					}
 				],
 				"parameters": []

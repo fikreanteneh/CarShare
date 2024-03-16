@@ -8,8 +8,11 @@ import { MeetupController } from './../features/meetup_service/meetup.controller
 import { EventController } from './../features/event/event.controller';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { AuthRoute } from './../features/auth/auth.controller';
+import { expressAuthentication } from './../middlewares/authentication.middleware';
+// @ts-ignore - no great way to install types from subpackage
 import type { Request as ExRequest, Response as ExResponse, RequestHandler, Router } from 'express';
 
+const expressAuthenticationRecasted = expressAuthentication as (req: ExRequest, securityName: string, scopes?: string[], res?: ExResponse) => Promise<any>;
 
 
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -120,7 +123,7 @@ export function RegisterRoutes(app: Router) {
     //      Please look into the "controllerPathGlobs" config option described in the readme: https://github.com/lukeautry/tsoa
     // ###########################################################################################################
         app.post('/meetups',
-            authenticateMiddleware([{"jwt":[]}]),
+            authenticateMiddleware([{"BearerAuth":[]}]),
             ...(fetchMiddlewares<RequestHandler>(MeetupController)),
             ...(fetchMiddlewares<RequestHandler>(MeetupController.prototype.createMeetup)),
 
@@ -152,7 +155,7 @@ export function RegisterRoutes(app: Router) {
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.put('/meetups/credentials/:id',
-            authenticateMiddleware([{"jwt":[]}]),
+            authenticateMiddleware([{"BearerAuth":[]}]),
             ...(fetchMiddlewares<RequestHandler>(MeetupController)),
             ...(fetchMiddlewares<RequestHandler>(MeetupController.prototype.updateCredentials)),
 
@@ -184,7 +187,7 @@ export function RegisterRoutes(app: Router) {
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.put('/meetups/name/:id',
-            authenticateMiddleware([{"jwt":[]}]),
+            authenticateMiddleware([{"BearerAuth":[]}]),
             ...(fetchMiddlewares<RequestHandler>(MeetupController)),
             ...(fetchMiddlewares<RequestHandler>(MeetupController.prototype.updateName)),
 
@@ -217,7 +220,7 @@ export function RegisterRoutes(app: Router) {
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.delete('/meetups/:id',
-            authenticateMiddleware([{"jwt":[]}]),
+            authenticateMiddleware([{"BearerAuth":[]}]),
             ...(fetchMiddlewares<RequestHandler>(MeetupController)),
             ...(fetchMiddlewares<RequestHandler>(MeetupController.prototype.deleteMeetup)),
 
@@ -249,7 +252,7 @@ export function RegisterRoutes(app: Router) {
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.get('/meetups/organizer/:id',
-            authenticateMiddleware([{"jwt":[]}]),
+            authenticateMiddleware([{"BearerAuth":[]}]),
             ...(fetchMiddlewares<RequestHandler>(MeetupController)),
             ...(fetchMiddlewares<RequestHandler>(MeetupController.prototype.getMeetupByOrganizer)),
 
@@ -281,7 +284,7 @@ export function RegisterRoutes(app: Router) {
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.get('/meetups/:id',
-            authenticateMiddleware([{"jwt":[]}]),
+            authenticateMiddleware([{"BearerAuth":[]}]),
             ...(fetchMiddlewares<RequestHandler>(MeetupController)),
             ...(fetchMiddlewares<RequestHandler>(MeetupController.prototype.getMeetupById)),
 
@@ -313,7 +316,7 @@ export function RegisterRoutes(app: Router) {
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.get('/meetups/all',
-            authenticateMiddleware([{"jwt":[]}]),
+            authenticateMiddleware([{"BearerAuth":[]}]),
             ...(fetchMiddlewares<RequestHandler>(MeetupController)),
             ...(fetchMiddlewares<RequestHandler>(MeetupController.prototype.getAllMeetups)),
 
@@ -344,7 +347,7 @@ export function RegisterRoutes(app: Router) {
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.post('/events',
-            authenticateMiddleware([{"jwt":[]}]),
+            authenticateMiddleware([{"BearerAuth":[]}]),
             ...(fetchMiddlewares<RequestHandler>(EventController)),
             ...(fetchMiddlewares<RequestHandler>(EventController.prototype.createEvent)),
 
@@ -376,7 +379,7 @@ export function RegisterRoutes(app: Router) {
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.delete('/events/:id',
-            authenticateMiddleware([{"jwt":[]}]),
+            authenticateMiddleware([{"BearerAuth":[]}]),
             ...(fetchMiddlewares<RequestHandler>(EventController)),
             ...(fetchMiddlewares<RequestHandler>(EventController.prototype.deleteEvent)),
 
@@ -408,7 +411,7 @@ export function RegisterRoutes(app: Router) {
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.put('/events/:id',
-            authenticateMiddleware([{"jwt":[]}]),
+            authenticateMiddleware([{"BearerAuth":[]}]),
             ...(fetchMiddlewares<RequestHandler>(EventController)),
             ...(fetchMiddlewares<RequestHandler>(EventController.prototype.updateEvent)),
 
@@ -441,7 +444,7 @@ export function RegisterRoutes(app: Router) {
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.get('/events/organizer/:id',
-            authenticateMiddleware([{"jwt":[]}]),
+            authenticateMiddleware([{"BearerAuth":[]}]),
             ...(fetchMiddlewares<RequestHandler>(EventController)),
             ...(fetchMiddlewares<RequestHandler>(EventController.prototype.getEventByOrganizer)),
 
@@ -473,7 +476,7 @@ export function RegisterRoutes(app: Router) {
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.get('/events/all',
-            authenticateMiddleware([{"jwt":[]}]),
+            authenticateMiddleware([{"BearerAuth":[]}]),
             ...(fetchMiddlewares<RequestHandler>(EventController)),
             ...(fetchMiddlewares<RequestHandler>(EventController.prototype.getAllEvents)),
 
@@ -504,7 +507,7 @@ export function RegisterRoutes(app: Router) {
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.get('/events/:id',
-            authenticateMiddleware([{"jwt":[]}]),
+            authenticateMiddleware([{"BearerAuth":[]}]),
             ...(fetchMiddlewares<RequestHandler>(EventController)),
             ...(fetchMiddlewares<RequestHandler>(EventController.prototype.getEventById)),
 

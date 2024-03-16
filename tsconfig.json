@@ -3,7 +3,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "resolveJsonModule": true,
-    "target": "ES2021",
+    "target": "es2021",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "baseUrl": "./src",

@@ -2,7 +2,8 @@
     "scripts": {
         "start": "nodemon ./src/index.ts",
         "routes": "tsoa routes",
-        "docs": "tsoa spec",
+        "spec": "tsoa spec",
+        "setup": "tsoa routes && tsoa spec",
         "dev": "tsoa routes && tsoa spec && nodemon ./src/index.ts"
     },
     "dependencies": {

@@ -1,5 +1,17 @@
 import { Request as ERequest } from "express";
-import { Body, Delete, Get, Path, Post, Put, Request, Route, Security, Tags } from "tsoa";
+import {
+  Body,
+  Delete,
+  Get,
+  Path,
+  Post,
+  Put,
+  Request,
+  Route,
+  Security,
+  Tags,
+} from "tsoa";
+import { AuthenticatedUser } from "types/token.types";
 import { db } from "../../config/database";
 import { responseHandler } from "../../middlewares/response.middleware";
 import Meetup from "../../models/meetup.model";
@@ -12,7 +24,7 @@ const database = db();
 
 @Tags("Meetup Services")
 @Route("meetups")
-@Security("jwt")
+@Security("BearerAuth")
 export class MeetupController {
   @Post("/")
   public async createMeetup(
@@ -20,7 +32,10 @@ export class MeetupController {
     @Body() requestBody: MeetupCreateRequest
   ): Promise<ResponseSuccessType<Meetup>> {
     const service = new MeetupServices(new MeetupRepository(database));
-    const result = await service.createMeetup(requestBody, request.user);
+    const result = await service.createMeetup(
+      requestBody,
+      request.user as AuthenticatedUser
+    );
     return responseHandler(result);
   }
 
@@ -30,7 +45,10 @@ export class MeetupController {
     @Request() request: ERequest
   ): Promise<ResponseSuccessType<any>> {
     const service = new MeetupServices(new MeetupRepository(database));
-    const result = await service.updateCredintials(id, request.user);
+    const result = await service.updateCredintials(
+      id,
+      request.user as AuthenticatedUser
+    );
     return responseHandler(result);
   }
 
@@ -41,7 +59,11 @@ export class MeetupController {
     @Request() request: ERequest
   ): Promise<ResponseSuccessType<any>> {
     const service = new MeetupServices(new MeetupRepository(database));
-    const result = await service.updateName(id, requestBody, request.user);
+    const result = await service.updateName(
+      id,
+      requestBody,
+      request.user as AuthenticatedUser
+    );
     return responseHandler(result);
   }
 
@@ -51,7 +73,10 @@ export class MeetupController {
     @Request() request: ERequest
   ): Promise<ResponseSuccessType<Meetup>> {
     const service = new MeetupServices(new MeetupRepository(database));
-    const result = await service.deleteMeetup(id, request.user);
+    const result = await service.deleteMeetup(
+      id,
+      request.user as AuthenticatedUser
+    );
     return responseHandler(result);
   }
 
@@ -61,7 +86,10 @@ export class MeetupController {
     @Request() request: ERequest
   ): Promise<ResponseSuccessType<Meetup[]>> {
     const service = new MeetupServices(new MeetupRepository(database));
-    const result = await service.getMeetupByOrganizer(id, request.user);
+    const result = await service.getMeetupByOrganizer(
+      id,
+      request.user as AuthenticatedUser
+    );
     return responseHandler(result);
   }
 
@@ -71,7 +99,10 @@ export class MeetupController {
     @Request() request: ERequest
   ): Promise<ResponseSuccessType<Meetup>> {
     const service = new MeetupServices(new MeetupRepository(database));
-    const result = await service.getMeetupById(id, request.user);
+    const result = await service.getMeetupById(
+      id,
+      request.user as AuthenticatedUser
+    );
     return responseHandler(result);
   }
 
@@ -80,7 +111,9 @@ export class MeetupController {
     @Request() request: ERequest
   ): Promise<ResponseSuccessType<Meetup[]>> {
     const service = new MeetupServices(new MeetupRepository(database));
-    const result = await service.getAllMeetups(request.user);
+    const result = await service.getAllMeetups(
+      request.user as AuthenticatedUser
+    );
     return responseHandler(result);
   }
 }

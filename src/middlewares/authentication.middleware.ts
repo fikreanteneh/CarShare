@@ -1,30 +1,47 @@
-import { Request } from "express";
+import { NextFunction, Request, Response } from "express";
+import AuthenticationError from "../errors/authentication.error";
 import { decodeToken } from "../utils/tokens";
+import { AuthenticatedUser } from "../types/token.types";
 
-// export const authenticationMidleware = (
-//   req: Request,
-//   res: Response,
-//   next: NextFunction
-// ) => {
-//   const token = req.headers.authorization;
-//   if (token) {
-//     const authenticatedUser = decodeToken(token);
-//     req.user = authenticatedUser;
-//   }
-//   next();
-// };
-const expressAuthenticationRecasted = (
+const expressAuthentication = async (
   request: Request,
   securityName: string,
   scopes?: string[]
-) => {
-  const token = request.headers.authorization;
-  if (token) {
+): Promise<AuthenticatedUser> => {
+  return new Promise((resolve, reject) => {
+    const bearer = (request.headers.Authorization ||
+      request.headers.authorization ||
+      "") as string;
+    if (!bearer) {
+      reject(new AuthenticationError());
+      return;
+    }
+    const token = bearer.split(" ")[1].trim();
     const authenticatedUser = decodeToken(token);
-    request.user = authenticatedUser;
-  } else {
-    request.user = null;
-  }
+    resolve(authenticatedUser);
+  });
 };
 
-export { expressAuthenticationRecasted };
+const authenticationMiddleware = (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
+  console.log("======request.headers==", request.headers);
+  const bearer = (request.headers.Authorization ||
+    request.headers.authorization ||
+    "") as string;
+  console.log("======bearer==", bearer);
+  if (!bearer) {
+    request.user = null;
+    return next();
+  }
+  const token = bearer.split(" ")[1].trim();
+  console.log("======token==", token);
+  const authenticatedUser = decodeToken(token);
+  console.log("======authenticatedUser==", authenticatedUser);
+  request.user = authenticatedUser;
+  next();
+};
+
+export { authenticationMiddleware, expressAuthentication };

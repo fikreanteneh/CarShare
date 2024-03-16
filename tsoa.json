@@ -4,10 +4,17 @@
   "controllerPathGlobs": ["src/features/*/*.controller.ts"],
   "spec": {
     "outputDirectory": "src/swagger",
-    "specVersion": 3
+    "specVersion": 3,
+    "securityDefinitions": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
   },
   "routes": {
-    "routesDir": "src/routes"
-  },
-  "authenticationModule": "src/middlewares/authentication.middleware.ts"
+    "routesDir": "src/routes",
+    "authenticationModule": "src/middlewares/authentication.middleware.ts"
+  }
 }

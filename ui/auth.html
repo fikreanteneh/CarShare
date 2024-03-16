@@ -23,17 +23,23 @@
 
         // console.log(params);
 
-        const res = await fetch("http://localhost:3000/v1/auth/oauth", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(params),
-        });
-        const data = await res.json();
-        console.log(data);
+        // const res = await fetch("http://localhost:3000/v1/auth/oauth", {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify(params),
+        // });
+        // const data = await res.json();
+        // console.log(data);
         const node = document.getElementById("auth");
-        node.innerHTML = data.token;
+        node.innerHTML = params.access_token;
+        const button = document.createElement("button");
+        button.innerHTML = "Copy token";
+        button.onclick = () => {
+          navigator.clipboard.writeText(params.access_token);
+        };
+        node.parentNode.appendChild(button);
       };
       sendToBackend();
     </script>

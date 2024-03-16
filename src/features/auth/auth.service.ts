@@ -18,8 +18,7 @@ export default class AuthServices {
       { method: "GET" }
     );
     const data = (await response.json()) as GoogleOauthResponse;
-
-    let organizer = await this.organizerRepository.getByEmail(data.email);
+    let organizer = await this.organizerRepository.getByEmail(`${data.email}`);
     if (!organizer) {
       const organizerId = uuidd.v4();
       organizer = await this.organizerRepository.create({

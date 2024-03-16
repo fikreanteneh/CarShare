@@ -11,8 +11,7 @@ export default class MeetupServices {
     this.meetupRepository = meetupRepository;
   }
 
-  async createMeetup(payload: MeetupCreateRequest, user: AuthenticatedUser | null) {
-    if (!user) throw new Error("User not found");
+  async createMeetup(payload: MeetupCreateRequest, user: AuthenticatedUser) {
     const id = uuidd.v4();
     const client_id = uuidd.v4();
     const client_secret = uuidd.v4();
@@ -30,7 +29,7 @@ export default class MeetupServices {
     });
   }
 
-  async updateCredintials(id: string, user: AuthenticatedUser | null) {
+  async updateCredintials(id: string, user: AuthenticatedUser) {
     const meetup = (await this.meetupRepository.getById(id)) as Meetup;
     // TODO: Implement Validation
     const client_id = uuidd.v4();
@@ -45,7 +44,7 @@ export default class MeetupServices {
   async updateName(
     id: string,
     payload: MeetupUpdateNameRequest,
-    user: AuthenticatedUser | null
+    user: AuthenticatedUser
   ) {
     const meetup = (await this.meetupRepository.getById(id)) as Meetup;
     // TODO: Implement Validation
@@ -55,22 +54,22 @@ export default class MeetupServices {
     });
   }
 
-  async deleteMeetup(id: string, user: AuthenticatedUser | null) {
+  async deleteMeetup(id: string, user: AuthenticatedUser) {
     // TODO: Implement Validation
     return await this.meetupRepository.delete(id);
   }
 
-  async getMeetupById(id: string, user: AuthenticatedUser | null) {
+  async getMeetupById(id: string, user: AuthenticatedUser) {
     // TODO: Implement Validation
     return await this.meetupRepository.getById(id);
   }
 
-  async getMeetupByOrganizer(organizerid: string, user: AuthenticatedUser | null) {
+  async getMeetupByOrganizer(organizerid: string, user: AuthenticatedUser) {
     // TODO: Implement Validation
     return await this.meetupRepository.getMeetupsByOrganizerId(organizerid);
   }
 
-  async getAllMeetups(user: AuthenticatedUser | null) {
+  async getAllMeetups(user: AuthenticatedUser) {
     // TODO: Implement Validation
     return await this.meetupRepository.getAll();
   }

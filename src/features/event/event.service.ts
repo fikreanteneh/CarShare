@@ -14,8 +14,7 @@ export default class EventServices {
     this.eventRepository = eventRepository;
   }
 
-  async createEvent(payload: EventCreateRequest, user: AuthenticatedUser | null) {
-  if (!user) throw new Error("User not found");
+  async createEvent(payload: EventCreateRequest, user: AuthenticatedUser) {
     return await this.eventRepository.create({
       id: uuidd.v4(),
       lat: payload.lat,
@@ -33,7 +32,7 @@ export default class EventServices {
   async updateEvent(
     id: string,
     payload: EventUpdateRequest,
-    user: AuthenticatedUser | null
+    user: AuthenticatedUser
   ) {
     const event = (await this.eventRepository.getById(id)) as unknown as Event;
     // TODO: Implement Validation
@@ -46,22 +45,22 @@ export default class EventServices {
     });
   }
 
-  async deleteEvent(id: string, user: AuthenticatedUser | null) {
+  async deleteEvent(id: string, user: AuthenticatedUser) {
     // TODO: Implement Validation
     return await this.eventRepository.delete(id);
   }
 
-  async getEventById(id: string, user: AuthenticatedUser | null) {
+  async getEventById(id: string, user: AuthenticatedUser) {
     // TODO: Implement Validation
     return await this.eventRepository.getById(id);
   }
 
-  async getEventByOrganizer(organizerid: string, user: AuthenticatedUser | null) {
+  async getEventByOrganizer(organizerid: string, user: AuthenticatedUser) {
     // TODO: Implement Validation
     return await this.eventRepository.getEventsByOrganizerId(organizerid);
   }
 
-  async getAllEvents(user: AuthenticatedUser | null) {
+  async getAllEvents(user: AuthenticatedUser) {
     // TODO: Implement Validation
     return await this.eventRepository.getAll();
   }

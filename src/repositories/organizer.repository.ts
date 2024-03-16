@@ -10,8 +10,8 @@ export default class OrganizerRepository extends Repository<Organizer> {
     this.prisma = prisma;
   }
 
-  async getByEmail(email: string): Promise<Organizer | null>{
-    return await this.model.findFirst({
+  async getByEmail(email: string): Promise<Organizer | null> {
+    return await this.model.findUnique({
       where: {
         email: email,
       },
