@@ -36,6 +36,7 @@ export default class Repository<T> {
     return record;
   }
   public async getAll(): Promise<T[]> {
+    console.log("====================");
     const records = await this.model.findMany();
     return records;
   }

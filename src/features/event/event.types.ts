@@ -6,16 +6,15 @@ export type EventCreateRequest = {
 };
 
 export type EventUpdateNameRequest = {
-  id: string;
   name: string;
   date: Date;
   lat: number;
   long: number;
 };
 
-export type EventDeleteRequest = {
-  id: string;
-};
+// export type EventDeleteRequest = {
+//   id: string;
+// };
 
 export type EventResponse = {
   id: string;

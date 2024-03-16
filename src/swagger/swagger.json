@@ -1,0 +1,897 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"Meetup": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"client_id": {
+						"type": "string"
+					},
+					"client_secret": {
+						"type": "string"
+					},
+					"organizer_id": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"organizer": {
+						"properties": {
+							"connect": {
+								"properties": {
+									"id": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"id"
+								],
+								"type": "object"
+							}
+						},
+						"required": [
+							"connect"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"id",
+					"client_id",
+					"client_secret",
+					"name"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ResponseSuccessType_Meetup_": {
+				"properties": {
+					"error": {
+						"type": "number",
+						"enum": [
+							null
+						],
+						"nullable": true
+					},
+					"response": {
+						"$ref": "#/components/schemas/Meetup"
+					},
+					"success": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"error",
+					"response",
+					"success"
+				],
+				"type": "object"
+			},
+			"MeetupCreateRequest": {
+				"properties": {
+					"name": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name"
+				],
+				"type": "object"
+			},
+			"ResponseSuccessType_any_": {
+				"properties": {
+					"error": {
+						"type": "number",
+						"enum": [
+							null
+						],
+						"nullable": true
+					},
+					"response": {},
+					"success": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"error",
+					"response",
+					"success"
+				],
+				"type": "object"
+			},
+			"MeetupUpdateNameRequest": {
+				"properties": {
+					"name": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name"
+				],
+				"type": "object"
+			},
+			"ResponseSuccessType_Meetup-Array_": {
+				"properties": {
+					"error": {
+						"type": "number",
+						"enum": [
+							null
+						],
+						"nullable": true
+					},
+					"response": {
+						"items": {
+							"$ref": "#/components/schemas/Meetup"
+						},
+						"type": "array"
+					},
+					"success": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"error",
+					"response",
+					"success"
+				],
+				"type": "object"
+			},
+			"Event": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"organizer_id": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"date": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lat": {
+						"type": "number",
+						"format": "double"
+					},
+					"long": {
+						"type": "number",
+						"format": "double"
+					},
+					"organizer": {
+						"properties": {
+							"connect": {
+								"properties": {
+									"id": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"id"
+								],
+								"type": "object"
+							}
+						},
+						"required": [
+							"connect"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"date",
+					"lat",
+					"long"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ResponseSuccessType_Event_": {
+				"properties": {
+					"error": {
+						"type": "number",
+						"enum": [
+							null
+						],
+						"nullable": true
+					},
+					"response": {
+						"$ref": "#/components/schemas/Event"
+					},
+					"success": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"error",
+					"response",
+					"success"
+				],
+				"type": "object"
+			},
+			"EventCreateRequest": {
+				"properties": {
+					"long": {
+						"type": "number",
+						"format": "double"
+					},
+					"lat": {
+						"type": "number",
+						"format": "double"
+					},
+					"date": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"name": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"long",
+					"lat",
+					"date",
+					"name"
+				],
+				"type": "object"
+			},
+			"ResponseSuccessType_Event-or-null_": {
+				"properties": {
+					"error": {
+						"type": "number",
+						"enum": [
+							null
+						],
+						"nullable": true
+					},
+					"response": {
+						"allOf": [
+							{
+								"$ref": "#/components/schemas/Event"
+							}
+						],
+						"nullable": true
+					},
+					"success": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"error",
+					"response",
+					"success"
+				],
+				"type": "object"
+			},
+			"EventUpdateNameRequest": {
+				"properties": {
+					"long": {
+						"type": "number",
+						"format": "double"
+					},
+					"lat": {
+						"type": "number",
+						"format": "double"
+					},
+					"date": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"name": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"long",
+					"lat",
+					"date",
+					"name"
+				],
+				"type": "object"
+			},
+			"ResponseSuccessType_Event-Array_": {
+				"properties": {
+					"error": {
+						"type": "number",
+						"enum": [
+							null
+						],
+						"nullable": true
+					},
+					"response": {
+						"items": {
+							"$ref": "#/components/schemas/Event"
+						},
+						"type": "array"
+					},
+					"success": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"error",
+					"response",
+					"success"
+				],
+				"type": "object"
+			},
+			"AuthLoginResponse": {
+				"properties": {
+					"token": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"token"
+				],
+				"type": "object"
+			},
+			"ResponseSuccessType_AuthLoginResponse_": {
+				"properties": {
+					"error": {
+						"type": "number",
+						"enum": [
+							null
+						],
+						"nullable": true
+					},
+					"response": {
+						"$ref": "#/components/schemas/AuthLoginResponse"
+					},
+					"success": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"error",
+					"response",
+					"success"
+				],
+				"type": "object"
+			},
+			"AuthLoginRequest": {
+				"properties": {
+					"expires_in": {
+						"type": "number",
+						"format": "double"
+					},
+					"token_type": {
+						"type": "string"
+					},
+					"access_token": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"expires_in",
+					"token_type",
+					"access_token"
+				],
+				"type": "object"
+			}
+		},
+		"securitySchemes": {
+			"BearerAuth": {
+				"type": "http",
+				"scheme": "bearer",
+				"bearerFormat": "JWT"
+			}
+		}
+	},
+	"info": {
+		"title": "",
+		"contact": {}
+	},
+	"paths": {
+		"/meetups": {
+			"post": {
+				"operationId": "CreateMeetup",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseSuccessType_Meetup_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Meetup Services"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/MeetupCreateRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/meetups/credentials/{id}": {
+			"put": {
+				"operationId": "UpdateCredentials",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseSuccessType_any_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Meetup Services"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/meetups/name/{id}": {
+			"put": {
+				"operationId": "UpdateName",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseSuccessType_any_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Meetup Services"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/MeetupUpdateNameRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/meetups/{id}": {
+			"delete": {
+				"operationId": "DeleteMeetup",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseSuccessType_Meetup_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Meetup Services"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"get": {
+				"operationId": "GetMeetupById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseSuccessType_Meetup_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Meetup Services"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/meetups/organizer/{id}": {
+			"get": {
+				"operationId": "GetMeetupByOrganizer",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseSuccessType_Meetup-Array_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Meetup Services"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/meetups/all": {
+			"get": {
+				"operationId": "GetAllMeetups",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseSuccessType_Meetup-Array_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Meetup Services"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/events": {
+			"post": {
+				"operationId": "CreateEvent",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseSuccessType_Event_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Event Services"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/EventCreateRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/events/{id}": {
+			"delete": {
+				"operationId": "DeleteEvent",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseSuccessType_Event_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Event Services"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "UpdateEvent",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseSuccessType_Event-or-null_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Event Services"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/EventUpdateNameRequest"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "GetEventById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseSuccessType_Event_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Event Services"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/events/organizer/{id}": {
+			"get": {
+				"operationId": "GetEventByOrganizer",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseSuccessType_Event-Array_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Event Services"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/events/all": {
+			"get": {
+				"operationId": "GetAllEvents",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseSuccessType_Event-Array_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Event Services"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/auth/oauth": {
+			"post": {
+				"operationId": "Create",
+				"responses": {
+					"201": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseSuccessType_AuthLoginResponse_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Authentication"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AuthLoginRequest"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}

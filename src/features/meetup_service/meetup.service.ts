@@ -2,12 +2,7 @@ import Meetup from "models/meetup.model";
 import MeetupRepository from "repositories/meetup.repository";
 import { AuthenticatedUser } from "types/token.types";
 import * as uuidd from "uuid";
-import {
-  MeetupCreateRequest,
-  MeetupDeleteRequest,
-  MeetupUpdateCreditialsRequest,
-  MeetupUpdateNameRequest,
-} from "./meetup.types";
+import { MeetupCreateRequest, MeetupUpdateNameRequest } from "./meetup.types";
 
 export default class MeetupServices {
   private meetupRepository: MeetupRepository;
@@ -30,37 +25,38 @@ export default class MeetupServices {
         connect: {
           id: user.id,
         },
-      }
+      },
     });
   }
 
-  async updateCredintials(
-    payload: MeetupUpdateCreditialsRequest,
-    user: AuthenticatedUser
-  ) {
-    const meetup = (await this.meetupRepository.getById(payload.id)) as Meetup;
+  async updateCredintials(id: string, user: AuthenticatedUser) {
+    const meetup = (await this.meetupRepository.getById(id)) as Meetup;
     // TODO: Implement Validation
     const client_id = uuidd.v4();
     const client_secret = uuidd.v4();
-    return await this.meetupRepository.update(payload.id, {
+    return await this.meetupRepository.update(id, {
       ...meetup,
       client_id,
       client_secret,
     });
   }
 
-  async updateName(payload: MeetupUpdateNameRequest, user: AuthenticatedUser) {
-    const meetup = (await this.meetupRepository.getById(payload.id)) as Meetup;
+  async updateName(
+    id: string,
+    payload: MeetupUpdateNameRequest,
+    user: AuthenticatedUser
+  ) {
+    const meetup = (await this.meetupRepository.getById(id)) as Meetup;
     // TODO: Implement Validation
-    return await this.meetupRepository.update(payload.id, {
+    return await this.meetupRepository.update(id, {
       ...meetup,
       name: payload.name,
     });
   }
 
-  async deleteMeetup(payload: MeetupDeleteRequest, user: AuthenticatedUser) {
+  async deleteMeetup(id: string, user: AuthenticatedUser) {
     // TODO: Implement Validation
-    return await this.meetupRepository.delete(payload.id);
+    return await this.meetupRepository.delete(id);
   }
 
   async getMeetupById(id: string, user: AuthenticatedUser) {
