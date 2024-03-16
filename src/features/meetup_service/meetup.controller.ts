@@ -1,82 +1,86 @@
-import { NextFunction, Request, Response } from "express";
-import MeetupRepository from "../../repositories/meetup.repository";
+import { Request as ERequest } from "express";
+import { Body, Delete, Get, Path, Post, Put, Request, Route, Security, Tags } from "tsoa";
 import { db } from "../../config/database";
+import { responseHandler } from "../../middlewares/response.middleware";
+import Meetup from "../../models/meetup.model";
+import MeetupRepository from "../../repositories/meetup.repository";
+import { ResponseSuccessType } from "../../types/request.types";
 import MeetupServices from "./meetup.service";
+import { MeetupCreateRequest, MeetupUpdateNameRequest } from "./meetup.types";
 
 const database = db();
 
-export const createMeetup = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const service = new MeetupServices(new MeetupRepository(database));
-  const result = await service.createMeetup(req.body.data, req.body.user);
-  return result;
-};
+@Tags("Meetup Services")
+@Route("meetups")
+@Security("jwt")
+export class MeetupController {
+  @Post("/")
+  public async createMeetup(
+    @Request() request: ERequest,
+    @Body() requestBody: MeetupCreateRequest
+  ): Promise<ResponseSuccessType<Meetup>> {
+    const service = new MeetupServices(new MeetupRepository(database));
+    const result = await service.createMeetup(requestBody, request.user);
+    return responseHandler(result);
+  }
 
-export const updateCredintials = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const service = new MeetupServices(new MeetupRepository(database));
-  const id = req.params.id;
-  const result = await service.updateCredintials({ id }, req.body.user);
-  return result;
-};
+  @Put("/credentials/{id}")
+  public async updateCredentials(
+    @Path() id: string,
+    @Request() request: ERequest
+  ): Promise<ResponseSuccessType<any>> {
+    const service = new MeetupServices(new MeetupRepository(database));
+    const result = await service.updateCredintials(id, request.user);
+    return responseHandler(result);
+  }
 
-export const updateName = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const service = new MeetupServices(new MeetupRepository(database));
-  const id = req.params.id;
-  const result = await service.updateName({ ...req.body.data, id }, req.body.user);
-  return result;
-};
+  @Put("/name/{id}")
+  public async updateName(
+    @Path() id: string,
+    @Body() requestBody: MeetupUpdateNameRequest,
+    @Request() request: ERequest
+  ): Promise<ResponseSuccessType<any>> {
+    const service = new MeetupServices(new MeetupRepository(database));
+    const result = await service.updateName(id, requestBody, request.user);
+    return responseHandler(result);
+  }
 
-export const deleteMeetup = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const service = new MeetupServices(new MeetupRepository(database));
-  const id = req.params.id;
-  const result = await service.deleteMeetup({ id }, req.body.user);
-  return result;
-};
+  @Delete("{id}")
+  public async deleteMeetup(
+    @Path() id: string,
+    @Request() request: ERequest
+  ): Promise<ResponseSuccessType<Meetup>> {
+    const service = new MeetupServices(new MeetupRepository(database));
+    const result = await service.deleteMeetup(id, request.user);
+    return responseHandler(result);
+  }
 
-export const getMeetupByOrganizer = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const service = new MeetupServices(new MeetupRepository(database));
-  const id = req.params.id;
-  const result = await service.getMeetupByOrganizer(id, req.body.user);
-  return result;
-};
+  @Get("/organizer/{id}")
+  public async getMeetupByOrganizer(
+    @Path() id: string,
+    @Request() request: ERequest
+  ): Promise<ResponseSuccessType<Meetup[]>> {
+    const service = new MeetupServices(new MeetupRepository(database));
+    const result = await service.getMeetupByOrganizer(id, request.user);
+    return responseHandler(result);
+  }
 
-export const getMeetupById = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const service = new MeetupServices(new MeetupRepository(database));
-  const id = req.params.id;
-  const result = await service.getMeetupById(id, req.body.user);
-  return result;
-};
+  @Get("/{id}")
+  public async getMeetupById(
+    @Path() id: string,
+    @Request() request: ERequest
+  ): Promise<ResponseSuccessType<Meetup>> {
+    const service = new MeetupServices(new MeetupRepository(database));
+    const result = await service.getMeetupById(id, request.user);
+    return responseHandler(result);
+  }
 
-export const getAllMeetups = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const service = new MeetupServices(new MeetupRepository(database));
-  const id = req.params.id;
-  const result = await service.getAllMeetups(req.body.user);
-  return result;
-};
+  @Get("/all")
+  public async getAllMeetups(
+    @Request() request: ERequest
+  ): Promise<ResponseSuccessType<Meetup[]>> {
+    const service = new MeetupServices(new MeetupRepository(database));
+    const result = await service.getAllMeetups(request.user);
+    return responseHandler(result);
+  }
+}

@@ -6,6 +6,10 @@ export type AuthLoginRequest = {
     expires_in: number;
 }
 
+export type AuthLoginResponse = {
+  token: string;
+};
+
 export type GoogleOauthResponse = {
     id: string;
     email: string;
@@ -17,8 +21,6 @@ export type GoogleOauthResponse = {
     locale: string;
 }
 
-export type AuthLoginResponse = {
-    token: string;
-}
+
 
 

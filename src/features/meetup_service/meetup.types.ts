@@ -4,17 +4,12 @@ export type MeetupCreateRequest = {
 
 export type MeetupUpdateNameRequest = {
     name: string;
-    id: string;
 }
 
 
-export type MeetupUpdateCreditialsRequest = {
-    id: string;
-}
-
-export type MeetupDeleteRequest = {
-    id: string;
-};
+// export type MeetupUpdateCreditialsRequest = {
+//     id: string;
+// }
 
 
 export type MeetupResponse = {
