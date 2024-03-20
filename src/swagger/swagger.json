@@ -7,6 +7,60 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
+			"OrgAuthLoginResponse": {
+				"properties": {
+					"token": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"token"
+				],
+				"type": "object"
+			},
+			"ResponseSuccessType_OrgAuthLoginResponse_": {
+				"properties": {
+					"error": {
+						"type": "number",
+						"enum": [
+							null
+						],
+						"nullable": true
+					},
+					"response": {
+						"$ref": "#/components/schemas/OrgAuthLoginResponse"
+					},
+					"success": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"error",
+					"response",
+					"success"
+				],
+				"type": "object"
+			},
+			"OrgAuthLoginRequest": {
+				"properties": {
+					"expires_in": {
+						"type": "number",
+						"format": "double"
+					},
+					"token_type": {
+						"type": "string"
+					},
+					"access_token": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"expires_in",
+					"token_type",
+					"access_token"
+				],
+				"type": "object"
+			},
 			"Meetup": {
 				"properties": {
 					"id": {
@@ -335,18 +389,56 @@
 				],
 				"type": "object"
 			},
-			"AuthLoginResponse": {
+			"CustomerCreateRequest": {
 				"properties": {
-					"token": {
+					"phone_number": {
+						"type": "string",
+						"nullable": true
+					},
+					"email": {
+						"type": "string"
+					},
+					"name": {
 						"type": "string"
 					}
 				},
 				"required": [
-					"token"
+					"phone_number",
+					"email",
+					"name"
 				],
 				"type": "object"
 			},
-			"ResponseSuccessType_AuthLoginResponse_": {
+			"User": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"name": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"phone_number": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"email",
+					"phone_number"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ResponseSuccessType_User-or-null_": {
 				"properties": {
 					"error": {
 						"type": "number",
@@ -356,7 +448,12 @@
 						"nullable": true
 					},
 					"response": {
-						"$ref": "#/components/schemas/AuthLoginResponse"
+						"allOf": [
+							{
+								"$ref": "#/components/schemas/User"
+							}
+						],
+						"nullable": true
 					},
 					"success": {
 						"type": "boolean"
@@ -369,23 +466,151 @@
 				],
 				"type": "object"
 			},
-			"AuthLoginRequest": {
+			"CustomerUpdateNameRequest": {
 				"properties": {
-					"expires_in": {
-						"type": "number",
-						"format": "double"
-					},
-					"token_type": {
-						"type": "string"
-					},
-					"access_token": {
+					"name": {
 						"type": "string"
 					}
 				},
 				"required": [
-					"expires_in",
-					"token_type",
-					"access_token"
+					"name"
+				],
+				"type": "object"
+			},
+			"ResponseSuccessType_User_": {
+				"properties": {
+					"error": {
+						"type": "number",
+						"enum": [
+							null
+						],
+						"nullable": true
+					},
+					"response": {
+						"$ref": "#/components/schemas/User"
+					},
+					"success": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"error",
+					"response",
+					"success"
+				],
+				"type": "object"
+			},
+			"ResponseSuccessType_User-Array_": {
+				"properties": {
+					"error": {
+						"type": "number",
+						"enum": [
+							null
+						],
+						"nullable": true
+					},
+					"response": {
+						"items": {
+							"$ref": "#/components/schemas/User"
+						},
+						"type": "array"
+					},
+					"success": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"error",
+					"response",
+					"success"
+				],
+				"type": "object"
+			},
+			"CusAuthLoginResponse": {
+				"properties": {
+					"token": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"token"
+				],
+				"type": "object"
+			},
+			"ResponseSuccessType_CusAuthLoginResponse_": {
+				"properties": {
+					"error": {
+						"type": "number",
+						"enum": [
+							null
+						],
+						"nullable": true
+					},
+					"response": {
+						"$ref": "#/components/schemas/CusAuthLoginResponse"
+					},
+					"success": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"error",
+					"response",
+					"success"
+				],
+				"type": "object"
+			},
+			"CusAuthLoginRequest": {
+				"properties": {
+					"client_secret": {
+						"type": "number",
+						"format": "double"
+					},
+					"client_id": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"client_secret",
+					"client_id",
+					"email"
+				],
+				"type": "object"
+			},
+			"CusAuthCheckResponse": {
+				"properties": {
+					"exist": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"exist"
+				],
+				"type": "object"
+			},
+			"ResponseSuccessType_CusAuthCheckResponse_": {
+				"properties": {
+					"error": {
+						"type": "number",
+						"enum": [
+							null
+						],
+						"nullable": true
+					},
+					"response": {
+						"$ref": "#/components/schemas/CusAuthCheckResponse"
+					},
+					"success": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"error",
+					"response",
+					"success"
 				],
 				"type": "object"
 			}
@@ -403,6 +628,38 @@
 		"contact": {}
 	},
 	"paths": {
+		"/organizerAuth/oauth": {
+			"post": {
+				"operationId": "Create",
+				"responses": {
+					"201": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseSuccessType_OrgAuthLoginResponse_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Organizer Authentication"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/OrgAuthLoginRequest"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/meetups": {
 			"post": {
 				"operationId": "CreateMeetup",
@@ -856,7 +1113,270 @@
 				"parameters": []
 			}
 		},
-		"/auth/oauth": {
+		"/users": {
+			"post": {
+				"operationId": "CreateUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseSuccessType_Event_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User Services"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CustomerCreateRequest"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "GetAll",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseSuccessType_User-Array_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User Services"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/users/{id}": {
+			"delete": {
+				"operationId": "DeleteUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseSuccessType_Event_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User Services"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"get": {
+				"operationId": "GetUserById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseSuccessType_User_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User Services"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/users/updateName/{id}": {
+			"put": {
+				"operationId": "UpdateName",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseSuccessType_User-or-null_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User Services"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CustomerUpdateNameRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/users/updateEmail/{id}": {
+			"put": {
+				"operationId": "UpdateEmail",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseSuccessType_User-or-null_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User Services"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CustomerUpdateNameRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/users/updatePhoneNumber/{id}": {
+			"put": {
+				"operationId": "UpdatePhoneNumber",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseSuccessType_User-or-null_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User Services"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CustomerUpdateNameRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/customerAuth/auth": {
 			"post": {
 				"operationId": "Create",
 				"responses": {
@@ -865,14 +1385,14 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ResponseSuccessType_AuthLoginResponse_"
+									"$ref": "#/components/schemas/ResponseSuccessType_CusAuthLoginResponse_"
 								}
 							}
 						}
 					}
 				},
 				"tags": [
-					"Authentication"
+					"Customer Authentication"
 				],
 				"security": [],
 				"parameters": [],
@@ -881,7 +1401,39 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/AuthLoginRequest"
+								"$ref": "#/components/schemas/CusAuthLoginRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/customerAuth/exist": {
+			"post": {
+				"operationId": "Exist",
+				"responses": {
+					"201": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseSuccessType_CusAuthCheckResponse_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Customer Authentication"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CusAuthLoginRequest"
 							}
 						}
 					}

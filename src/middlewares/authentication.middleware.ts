@@ -1,13 +1,13 @@
 import { NextFunction, Request, Response } from "express";
 import AuthenticationError from "../errors/authentication.error";
+import { AuthenticatedOrganizer } from "../types/token.types";
 import { decodeToken } from "../utils/tokens";
-import { AuthenticatedUser } from "../types/token.types";
 
 const expressAuthentication = async (
   request: Request,
   securityName: string,
   scopes?: string[]
-): Promise<AuthenticatedUser> => {
+): Promise<AuthenticatedOrganizer> => {
   return new Promise((resolve, reject) => {
     const bearer = (request.headers.Authorization ||
       request.headers.authorization ||

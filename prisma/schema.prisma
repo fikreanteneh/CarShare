@@ -39,3 +39,11 @@ model events {
   long Decimal 
   organizer organizers @relation(fields: [organizer_id], references: [id]) 
 }
+
+model customers {
+  id       String  @unique @id @default(uuid())
+  createdAt DateTime @default(now())
+  email     String @unique
+  phone_number String? 
+  name      String
+}

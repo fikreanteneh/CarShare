@@ -11,7 +11,7 @@ import {
   Security,
   Tags,
 } from "tsoa";
-import { AuthenticatedUser } from "types/token.types";
+import { AuthenticatedOrganizer } from "types/token.types";
 import { db } from "../../config/database";
 import { responseHandler } from "../../middlewares/response.middleware";
 import Meetup from "../../models/meetup.model";
@@ -34,7 +34,7 @@ export class MeetupController {
     const service = new MeetupServices(new MeetupRepository(database));
     const result = await service.createMeetup(
       requestBody,
-      request.user as AuthenticatedUser
+      request.user as AuthenticatedOrganizer
     );
     return responseHandler(result);
   }
@@ -47,7 +47,7 @@ export class MeetupController {
     const service = new MeetupServices(new MeetupRepository(database));
     const result = await service.updateCredintials(
       id,
-      request.user as AuthenticatedUser
+      request.user as AuthenticatedOrganizer
     );
     return responseHandler(result);
   }
@@ -62,7 +62,7 @@ export class MeetupController {
     const result = await service.updateName(
       id,
       requestBody,
-      request.user as AuthenticatedUser
+      request.user as AuthenticatedOrganizer
     );
     return responseHandler(result);
   }
@@ -75,7 +75,7 @@ export class MeetupController {
     const service = new MeetupServices(new MeetupRepository(database));
     const result = await service.deleteMeetup(
       id,
-      request.user as AuthenticatedUser
+      request.user as AuthenticatedOrganizer
     );
     return responseHandler(result);
   }
@@ -88,7 +88,7 @@ export class MeetupController {
     const service = new MeetupServices(new MeetupRepository(database));
     const result = await service.getMeetupByOrganizer(
       id,
-      request.user as AuthenticatedUser
+      request.user as AuthenticatedOrganizer
     );
     return responseHandler(result);
   }
@@ -101,7 +101,7 @@ export class MeetupController {
     const service = new MeetupServices(new MeetupRepository(database));
     const result = await service.getMeetupById(
       id,
-      request.user as AuthenticatedUser
+      request.user as AuthenticatedOrganizer
     );
     return responseHandler(result);
   }
@@ -112,7 +112,7 @@ export class MeetupController {
   ): Promise<ResponseSuccessType<Meetup[]>> {
     const service = new MeetupServices(new MeetupRepository(database));
     const result = await service.getAllMeetups(
-      request.user as AuthenticatedUser
+      request.user as AuthenticatedOrganizer
     );
     return responseHandler(result);
   }
