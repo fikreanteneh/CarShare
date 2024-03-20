@@ -1,6 +1,17 @@
 import { Request as ERequest } from "express";
-import { Body, Delete, Get, Path, Post, Put, Request, Route, Security, Tags } from "tsoa";
-import { AuthenticatedUser } from "types/token.types";
+import {
+  Body,
+  Delete,
+  Get,
+  Path,
+  Post,
+  Put,
+  Request,
+  Route,
+  Security,
+  Tags,
+} from "tsoa";
+import { AuthenticatedOrganizer } from "types/token.types";
 import { db } from "../../config/database";
 import { responseHandler } from "../../middlewares/response.middleware";
 import Event from "../../models/event.model";
@@ -21,7 +32,10 @@ export class EventController {
     @Body() requestBody: EventCreateRequest
   ): Promise<ResponseSuccessType<Event>> {
     const service = new EventService(new EventRepository(database));
-    const response = await service.createEvent(requestBody, request.user as AuthenticatedUser);
+    const response = await service.createEvent(
+      requestBody,
+      request.user as AuthenticatedOrganizer
+    );
     return responseHandler(response);
   }
 
@@ -31,7 +45,10 @@ export class EventController {
     @Request() request: ERequest
   ): Promise<ResponseSuccessType<Event>> {
     const service = new EventService(new EventRepository(database));
-    const response = await service.deleteEvent(id, request.user as AuthenticatedUser);
+    const response = await service.deleteEvent(
+      id,
+      request.user as AuthenticatedOrganizer
+    );
     return responseHandler(response);
   }
 
@@ -42,7 +59,11 @@ export class EventController {
     @Request() request: ERequest
   ): Promise<ResponseSuccessType<Event | null>> {
     const service = new EventService(new EventRepository(database));
-    const response = await service.updateEvent(id, requestBody, request.user as AuthenticatedUser);
+    const response = await service.updateEvent(
+      id,
+      requestBody,
+      request.user as AuthenticatedOrganizer
+    );
     return responseHandler(response);
   }
 
@@ -52,7 +73,10 @@ export class EventController {
     @Request() request: ERequest
   ): Promise<ResponseSuccessType<Event[]>> {
     const service = new EventService(new EventRepository(database));
-    const response = await service.getEventByOrganizer(id, request.user as AuthenticatedUser);
+    const response = await service.getEventByOrganizer(
+      id,
+      request.user as AuthenticatedOrganizer
+    );
     return responseHandler(response);
   }
 
@@ -61,7 +85,9 @@ export class EventController {
     @Request() request: ERequest
   ): Promise<ResponseSuccessType<Event[]>> {
     const service = new EventService(new EventRepository(database));
-    const response = await service.getAllEvents(request.user as AuthenticatedUser);
+    const response = await service.getAllEvents(
+      request.user as AuthenticatedOrganizer
+    );
     return responseHandler(response);
   }
 
@@ -71,7 +97,10 @@ export class EventController {
     @Request() request: ERequest
   ): Promise<ResponseSuccessType<Event>> {
     const service = new EventService(new EventRepository(database));
-    const response = await service.getEventById(id, request.user as AuthenticatedUser);
+    const response = await service.getEventById(
+      id,
+      request.user as AuthenticatedOrganizer
+    );
     return responseHandler(response);
   }
 }

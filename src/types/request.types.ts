@@ -1,16 +1,16 @@
-import { AuthenticatedUser } from "./token.types";
+import { AuthenticatedOrganizer } from "./token.types";
 
 declare global {
   namespace Express {
     interface Request {
-      user: AuthenticatedUser | null; // or the type of your user
+      user: AuthenticatedOrganizer | null; // or the type of your user
     }
   }
 }
 
 export type RequestType<T> = {
   data: T;
-  user?: AuthenticatedUser;
+  user?: AuthenticatedOrganizer;
 };
 
 export type ResponseSuccessType<T> = {

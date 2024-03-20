@@ -1,7 +1,7 @@
 import * as uuidd from "uuid";
 import Event from "../../models/event.model";
 import EventRepository from "../../repositories/events.repository";
-import { AuthenticatedUser } from "../../types/token.types";
+import { AuthenticatedOrganizer } from "../../types/token.types";
 import {
   EventCreateRequest,
   EventUpdateNameRequest as EventUpdateRequest,
@@ -14,7 +14,7 @@ export default class EventServices {
     this.eventRepository = eventRepository;
   }
 
-  async createEvent(payload: EventCreateRequest, user: AuthenticatedUser) {
+  async createEvent(payload: EventCreateRequest, user: AuthenticatedOrganizer) {
     return await this.eventRepository.create({
       id: uuidd.v4(),
       lat: payload.lat,
@@ -32,7 +32,7 @@ export default class EventServices {
   async updateEvent(
     id: string,
     payload: EventUpdateRequest,
-    user: AuthenticatedUser
+    user: AuthenticatedOrganizer
   ) {
     const event = (await this.eventRepository.getById(id)) as unknown as Event;
     // TODO: Implement Validation
@@ -45,22 +45,22 @@ export default class EventServices {
     });
   }
 
-  async deleteEvent(id: string, user: AuthenticatedUser) {
+  async deleteEvent(id: string, user: AuthenticatedOrganizer) {
     // TODO: Implement Validation
     return await this.eventRepository.delete(id);
   }
 
-  async getEventById(id: string, user: AuthenticatedUser) {
+  async getEventById(id: string, user: AuthenticatedOrganizer) {
     // TODO: Implement Validation
     return await this.eventRepository.getById(id);
   }
 
-  async getEventByOrganizer(organizerid: string, user: AuthenticatedUser) {
+  async getEventByOrganizer(organizerid: string, user: AuthenticatedOrganizer) {
     // TODO: Implement Validation
     return await this.eventRepository.getEventsByOrganizerId(organizerid);
   }
 
-  async getAllEvents(user: AuthenticatedUser) {
+  async getAllEvents(user: AuthenticatedOrganizer) {
     // TODO: Implement Validation
     return await this.eventRepository.getAll();
   }

@@ -1,17 +1,17 @@
 import Organizer from "models/organizer.model";
 import OrganizerRepository from "repositories/organizer.repository";
 import * as uuidd from "uuid";
-import { decodeToken, encodeToken } from "../../utils/tokens";
-import { AuthLoginRequest, GoogleOauthResponse } from "./auth.types";
+import { encodeToken } from "../../utils/tokens";
+import { GoogleOauthResponse, OrgAuthLoginRequest } from "./orgauth.types";
 
-export default class AuthServices {
+export default class OrgAuthServices {
   private organizerRepository: OrganizerRepository;
 
   constructor(organizerRepository: OrganizerRepository) {
     this.organizerRepository = organizerRepository;
   }
 
-  async login(payload: AuthLoginRequest) {
+  async login(payload: OrgAuthLoginRequest) {
     const access_token = payload.access_token;
     const response = await fetch(
       `https://www.googleapis.com/oauth2/v2/userinfo?access_token=${access_token}`,

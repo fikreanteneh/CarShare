@@ -1,6 +1,6 @@
 import Meetup from "models/meetup.model";
 import MeetupRepository from "repositories/meetup.repository";
-import { AuthenticatedUser } from "types/token.types";
+import { AuthenticatedOrganizer } from "types/token.types";
 import * as uuidd from "uuid";
 import { MeetupCreateRequest, MeetupUpdateNameRequest } from "./meetup.types";
 
@@ -11,7 +11,10 @@ export default class MeetupServices {
     this.meetupRepository = meetupRepository;
   }
 
-  async createMeetup(payload: MeetupCreateRequest, user: AuthenticatedUser) {
+  async createMeetup(
+    payload: MeetupCreateRequest,
+    user: AuthenticatedOrganizer
+  ) {
     const id = uuidd.v4();
     const client_id = uuidd.v4();
     const client_secret = uuidd.v4();
@@ -29,7 +32,7 @@ export default class MeetupServices {
     });
   }
 
-  async updateCredintials(id: string, user: AuthenticatedUser) {
+  async updateCredintials(id: string, user: AuthenticatedOrganizer) {
     const meetup = (await this.meetupRepository.getById(id)) as Meetup;
     // TODO: Implement Validation
     const client_id = uuidd.v4();
@@ -44,7 +47,7 @@ export default class MeetupServices {
   async updateName(
     id: string,
     payload: MeetupUpdateNameRequest,
-    user: AuthenticatedUser
+    user: AuthenticatedOrganizer
   ) {
     const meetup = (await this.meetupRepository.getById(id)) as Meetup;
     // TODO: Implement Validation
@@ -54,22 +57,25 @@ export default class MeetupServices {
     });
   }
 
-  async deleteMeetup(id: string, user: AuthenticatedUser) {
+  async deleteMeetup(id: string, user: AuthenticatedOrganizer) {
     // TODO: Implement Validation
     return await this.meetupRepository.delete(id);
   }
 
-  async getMeetupById(id: string, user: AuthenticatedUser) {
+  async getMeetupById(id: string, user: AuthenticatedOrganizer) {
     // TODO: Implement Validation
     return await this.meetupRepository.getById(id);
   }
 
-  async getMeetupByOrganizer(organizerid: string, user: AuthenticatedUser) {
+  async getMeetupByOrganizer(
+    organizerid: string,
+    user: AuthenticatedOrganizer
+  ) {
     // TODO: Implement Validation
     return await this.meetupRepository.getMeetupsByOrganizerId(organizerid);
   }
 
-  async getAllMeetups(user: AuthenticatedUser) {
+  async getAllMeetups(user: AuthenticatedOrganizer) {
     // TODO: Implement Validation
     return await this.meetupRepository.getAll();
   }

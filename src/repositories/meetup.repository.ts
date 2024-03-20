@@ -17,4 +17,12 @@ export default class MeetupRepository extends Repository<Meetup> {
       },
     });
   }
+
+  async getMeetupByClient(client_id: string) {
+    return this.model.findFirst({
+      where: {
+        client_id: client_id,
+      },
+    });
+  }
 }
